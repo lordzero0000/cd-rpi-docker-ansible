@@ -1,5 +1,6 @@
 ---
 - hosts: zappinpi
+  remote_user: root
   tasks:
     - name: Install gogs on the RPI
       cmd: docker pull hypriot/rpi-gogs-raspbian
