@@ -1,0 +1,25 @@
+---
+- hosts: zappinpi
+  tasks:
+    - name: Install gogs on the RPI
+      cmd: docker pull hypriot/rpi-gogs-raspbian
+      notify:
+        - run gogs
+    - name: Creates directory cd-stuff
+      file: path=/opt state=directory
+    - name: Upload runner.sh file
+      copy: src=scripts/runner.sh dest=/opt/cd-stuff/ mode=0777
+    - name: Install Webhook Listener API
+      git: src=git@github.com:lordzero0000/webhook-listener-api.git dest=/opt/cd-stuff
+    - name: Install forever package
+      shell: npm install forever -g
+    - name: Install Webhook Listener API dependecies.
+      command: chdir=/opt/cd-stuff npm install
+      notify:
+        - run webhook-listener-api
+
+  handlers:
+    - name: run gogs
+      shell: docker run -d --publish 8022:22 --publish 3000:3000 --volume `pwd`/gogs-data/:/data hypriot/rpi-gogs-raspbian
+    - name: run webhook-listener-api
+      shell: forever /opt/cd-stuff/src/index.js
