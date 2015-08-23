@@ -15,7 +15,7 @@
     - name: Install forever package
       shell: npm install forever -g
     - name: Install Webhook Listener API dependecies.
-      command: chdir=/opt/cd-stuff npm install
+      command: chdir=/opt/cd-stuff/webhook-listener-api/src npm install
       notify:
         - run webhook-listener-api
 
@@ -23,4 +23,4 @@
     - name: run gogs
       shell: docker run -d --publish 8022:22 --publish 3000:3000 --volume `pwd`/gogs-data/:/data hypriot/rpi-gogs-raspbian
     - name: run webhook-listener-api
-      shell: forever /opt/cd-stuff/src/index.js
+      shell: forever /opt/cd-stuff/webhook-listener-api/src/index.js
