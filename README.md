@@ -15,6 +15,7 @@ ansible-playbook -l my_host start.yml
  - Just run the ansible playbook and you'll have a CD on you RPI.
  - Go to the port 3000 of your RPI on your browser and setup your go git service.
  - Create a new repository on gogs. And add the webhook to the port 5000 of your RPI using application/json as content type.
+ - You'll need to set the Slack webhook on runner.sh to notify your Slack team that the application has been deployed.
  - Start to deploy. Check the webhook-listener-api (https://github.com/lordzero0000/webhook-listener-api) repository for more information.
 
 ###### Created by @lordzero0000 under the WTFPL License.
